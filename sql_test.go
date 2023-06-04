@@ -94,3 +94,29 @@ func TestQuerySqlSelect(t *testing.T) {
 	defer rows.Close()
 
 }
+
+func TestSqlInjection(t *testing.T) {
+	db := GetConnection()
+	defer db.Close()
+
+	ctx := context.Background()
+
+	username := "admins"
+	password := "admin"
+
+	query := "SELECT username FROM user WHERE username = '" + username + "' AND Password = '" + password + "'Limit 1"
+
+	rows, err := db.QueryContext(ctx, query)
+	if err != nil {
+		panic(err)
+	}
+	defer rows.Close()
+
+	if rows.Next() {
+		var username string
+		rows.Scan(&username)
+		fmt.Println("Sukses login", username)
+	} else {
+		fmt.Println("Gagal Login")
+	}
+}
