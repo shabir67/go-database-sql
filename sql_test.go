@@ -101,8 +101,8 @@ func TestSqlInjection(t *testing.T) {
 
 	ctx := context.Background()
 
-	username := "admins"
-	password := "admin"
+	username := "admin'; #"
+	password := "bukanpassword"
 
 	query := "SELECT username FROM user WHERE username = '" + username + "' AND Password = '" + password + "'Limit 1"
 
@@ -115,6 +115,9 @@ func TestSqlInjection(t *testing.T) {
 	if rows.Next() {
 		var username string
 		rows.Scan(&username)
+		if err != nil {
+			panic(err)
+		}
 		fmt.Println("Sukses login", username)
 	} else {
 		fmt.Println("Gagal Login")
