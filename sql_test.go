@@ -101,8 +101,8 @@ func TestSqlInjection(t *testing.T) {
 
 	ctx := context.Background()
 
-	username := "admin'; #"
-	password := "bukanpassword"
+	username := "admin'; # "
+	password := " or 1=1--+"
 
 	query := "SELECT username FROM user WHERE username = '" + username + "' AND Password = '" + password + "'Limit 1"
 
