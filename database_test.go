@@ -12,7 +12,7 @@ func TestEmpty(t *testing.T) {
 }
 
 func TestOpemConnection(t *testing.T) {
-	db, err := sql.Open("mysql", "root:@tcp(localhost:3306)/")
+	db, err := sql.Open("mysql", "root:password@tcp(localhost:3306)/")
 	if err != nil {
 		panic(err)
 	}
