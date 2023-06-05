@@ -251,7 +251,7 @@ func TestTransaction(t *testing.T) {
 		fmt.Println("Comment Id", id)
 	}
 
-	err = tx.Rollback()
+	err = tx.Commit()
 	if err != nil {
 		panic(err)
 	}
