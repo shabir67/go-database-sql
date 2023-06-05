@@ -152,3 +152,21 @@ func TestSqlInjectionSafe(t *testing.T) {
 		fmt.Println("Gagal Login")
 	}
 }
+
+func TestExecSqlParameter(t *testing.T) {
+	db := GetConnection()
+	defer db.Close()
+
+	ctx := context.Background()
+
+	username := "shobir"
+	password := "shobir"
+
+	query := "INSERT INTO user(username, password) VALUES(?,?)"
+	_, err := db.ExecContext(ctx, query, username, password)
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println("Success insert new userer")
+}
